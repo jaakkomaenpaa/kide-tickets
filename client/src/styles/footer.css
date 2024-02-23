@@ -1,0 +1,20 @@
+.footerContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  bottom: 0px;
+  left: 0px;
+  width: 100%;
+  padding: 20px;
+  background-color: white;
+}
+
+.footerText {
+  margin: 10px;
+}
+
+.hLine {
+  color: black;
+  width: 80%;
+}

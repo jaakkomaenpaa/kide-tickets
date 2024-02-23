@@ -1,0 +1,29 @@
+.pageLink {
+  margin: 0px 20px 0px 20px;
+  text-decoration: none;
+  color: white;
+  font-weight: 500;
+}
+
+.navBar {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding: 20px;
+  border-width: 2;
+  border-color: black;
+  border-style: solid;
+  background-color: grey;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+.centerContent {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 150px);
+  width: 100vh;
+}
