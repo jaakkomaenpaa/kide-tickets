@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
 
 import './../styles/navbar.css'
-import Reservation from '../pages/Reservation'
+import Reservation from '../pages/Reservation/Reservation'
 import Help from '../pages/Help'
 import Home from '../pages/Home'
 

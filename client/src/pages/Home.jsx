@@ -1,7 +1,10 @@
 const Home = () => {
   return (
     <>
-      <div>Log in to make reserving easier and save events to watchlist</div>
+      <div className='infoText'>
+        <p>Log in to make reserving easier and save events to watchlist</p>
+        <p>Reserving tickets requires an access code to prevent overusage</p>
+      </div>
     </>
   )
 }
