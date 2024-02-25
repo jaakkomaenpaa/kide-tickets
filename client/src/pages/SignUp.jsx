@@ -14,7 +14,7 @@ const validationSchema = yup.object().shape({
     .string()
     .required('Password is required')
     .min(8, 'Password must be at least 8 characters long'),
-  authToken: yup.string().nullable(),
+  kideAuthToken: yup.string().nullable(),
 })
 
 const fieldInfo = [
@@ -46,7 +46,6 @@ const SignUp = () => {
         password,
         kideAuthToken,
       })
-      console.log(user)
       setSubmitted(true)
       window.localStorage.setItem('loggedUser', JSON.stringify(user))
       navigate('/home')

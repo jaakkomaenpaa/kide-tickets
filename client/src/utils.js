@@ -1,3 +1,5 @@
+import config from './config'
+
 export const sleep = (ms) => {
   return new Promise((resolve) => setTimeout(resolve, ms))
 }
@@ -16,7 +18,7 @@ export const reverseString = (string) => {
 }
 
 export const getRequestId = (inventoryId) => {
-  const secret = process.env.REACT_APP_SECRET_STRING
+  const secret = config.SECRET
   return btoa(
     [...inventoryId.replace(/-/g, '')]
       .map((char, i) =>

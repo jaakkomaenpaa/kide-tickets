@@ -1,14 +1,11 @@
 import axios from 'axios'
 
-import { getRequestId } from '../utils'
-import { reverseString } from '../utils'
-
-const baseUrl = 'https://api.kide.app/api/products/'
-const reservationUrl = 'https://api.kide.app/api/reservations'
+import { getRequestId, reverseString } from '../utils'
+import config from '../config'
 
 const getEvent = async (eventUrl) => {
   try {
-    const request = await axios.get(`${baseUrl}${eventUrl}`)
+    const request = await axios.get(`${config.KIDE_PRODUCT_URL}${eventUrl}`)
     console.log(request.data)
     const product = request.data.model.product
 
@@ -50,7 +47,7 @@ const makeReservation = async (authToken, variant, quantity) => {
   console.log('headers', headers)
 
   try {
-    const response = await axios.post(reservationUrl, body, { headers })
+    const response = await axios.post(config.KIDE_RESERVATION_URL, body, { headers })
     console.log(`Success reserving type ${variant.name}`)
     return response
   } catch (error) {

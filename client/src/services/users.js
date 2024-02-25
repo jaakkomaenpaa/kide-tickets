@@ -1,5 +1,7 @@
 import axios from 'axios'
-const baseUrl = `${process.env.REACT_APP_BASEURL}/users`
+import config from '../config'
+
+const baseUrl = `${config.SERVER_BASE_URL}/users`
 
 const create = async (userData) => {
   const response = await axios.post(baseUrl, userData)
