@@ -10,8 +10,6 @@ const userSchema = mongoose.Schema({
   },
   kideAuthToken: {
     type: String,
-    required: true,
-    minlength: 10
   },
   passwordHash: {
     type: String,
@@ -32,6 +30,7 @@ userSchema.set('toJSON', {
     delete returnedObject._id
     delete returnedObject.__v
     delete returnedObject.passwordHash
+    delete returnedObject.kideAuthToken
   },
 })
 

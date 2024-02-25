@@ -8,9 +8,9 @@ usersRouter.get('/', async (req, res) => {
 })
 
 usersRouter.post('/', async (req, res) => {
-  const { username, kideAuthToken, password } = req.body
+  const { username, password, kideAuthToken } = req.body
 
-  if (!username || !kideAuthToken || !password) {
+  if (!username || !password) {
     res.status(400).json('Missing a field')
     return
   }
