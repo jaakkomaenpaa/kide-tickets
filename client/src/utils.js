@@ -16,7 +16,6 @@ export const reverseString = (string) => {
 }
 
 export const getRequestId = (inventoryId) => {
-  // eslint-disable-next-line no-undef
   const secret = process.env.REACT_APP_SECRET_STRING
   return btoa(
     [...inventoryId.replace(/-/g, '')]
@@ -28,6 +27,6 @@ export const getRequestId = (inventoryId) => {
 }
 
 export const sendStatusMessage = (message, statusList) => {
-  statusList += <p>message</p>
+  statusList += <p>{message}</p>
 } 
 

@@ -5,9 +5,8 @@ import { sendStatusMessage } from '../utils'
 export const startBot = async (bot) => {
 
   await bot.waitForSaleStart()
-  console.log('DO NOT GO HERE YET')
-  //await bot.getEventData()
-  //await bot.startReservation()
+  await bot.getEventData()
+  await bot.startReservation()
 }
 
 export const initBot = async (eventUrl, authToken, userPreferences) => {

@@ -5,7 +5,7 @@
   font-weight: 500;
 }
 
-.navBar {
+.navbar {
   display: flex;
   flex-direction: row;
   justify-content: center;
