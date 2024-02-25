@@ -1,8 +1,6 @@
 import * as yup from 'yup'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
 
-import { startBot, initBot } from '../../bot/scripts'
-
 const validationSchema = yup.object().shape({
   eventUrl: yup.string().required('Event url is required'),
   authToken: yup.string().required('Bearer token is required'),
@@ -10,17 +8,7 @@ const validationSchema = yup.object().shape({
   keyword: yup.string().nullable(),
 })
 
-const ReservationForm = ({ setSubmitted, setSaleStartTime }) => {
-  const submit = async ({ eventUrl, authToken, ticketIndex, keyword }) => {
-    setSubmitted(true)
-    const userPreferences = {
-      ticketIndex: ticketIndex || 0,
-      keyword: keyword || '',
-    }
-    const bot = await initBot(eventUrl, authToken, userPreferences)
-    setSaleStartTime(bot.saleStartTime)
-    await startBot(bot)
-  }
+const ReservationForm = ({ setSubmitted, setSaleStartTime, submit }) => {
 
   const fieldInfo = [
     {

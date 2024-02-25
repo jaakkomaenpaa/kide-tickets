@@ -1,4 +1,6 @@
-const InfoBox = ({ statusMessage }) => {
+import Timer from './Timer'
+
+const InfoBox = ({ statusList, saleStartTime }) => {
   return (
     <div className='infoBox'>
       <h4>Important</h4>
@@ -6,7 +8,12 @@ const InfoBox = ({ statusMessage }) => {
         Refreshing the page or navigating to the other pages of this app will
         stop the reservation process.
       </p>
-      {statusMessage}
+      {saleStartTime !== null ? <Timer saleStartTime={saleStartTime} /> : null}
+      <div className='statusList'>
+        {statusList.map((message) => (
+          <div key={message}>{message}</div>
+        ))}
+      </div>
     </div>
   )
 }

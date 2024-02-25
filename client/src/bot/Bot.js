@@ -1,9 +1,9 @@
-import { sendStatusMessage, sleep } from '../utils'
+import { sleep } from '../utils'
 import kideService from '../services/kide'
 
 class Bot {
-  constructor(event, eventUrl, authToken, userPreferences) {
-    this.event = event
+  constructor(event, eventUrl, authToken, userPreferences, sendStatusMessage) {
+    this.sendStatusMessage = sendStatusMessage
     this.eventUrl = eventUrl
     this.authToken = authToken
     this.userPreferences = userPreferences
@@ -18,14 +18,14 @@ class Bot {
 
   async waitForSaleStart() {
     if (this.saleStartTime > new Date()) {
-      sendStatusMessage('Waiting until the sale starts')
+      this.sendStatusMessage('Waiting until the sale starts')
       await sleep(this.saleStartTime - new Date())
     }
     return
   }
 
   async getEventData() {
-    sendStatusMessage('Fetching event data...')
+    this.sendStatusMessage('Fetching event data...')
     while (true) {
       const response = await kideService.getEvent(this.eventUrl)
       if (
@@ -45,7 +45,7 @@ class Bot {
     const variants = this.eventData.variants
     const { ticketIndex, keyword } = this.userPreferences
 
-    sendStatusMessage('Starting the reservation...')
+    this.sendStatusMessage('Starting the reservation...')
 
     // Reserve based on keyword
     if (keyword.length >= 3) {
@@ -104,7 +104,7 @@ class Bot {
       variantQuantity
     )
     const status = response.status !== 'fail' ? 'Success' : 'Fail'
-    sendStatusMessage(`${status} reserving type ${variant.name}`)
+    this.sendStatusMessage(`${status} reserving type ${variant.name}`)
   }
 }
 

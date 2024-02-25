@@ -1,18 +1,16 @@
 import { useEffect, useState } from 'react'
 
+import { startBot, initBot } from '../../bot/scripts'
 import './../../styles/reserve.css'
 import ReservationForm from './ReservationForm'
 import InfoBox from './InfoBox'
-import Timer from './Timer'
 
 const Reservation = () => {
   const [accessAllowed, setAccessAllowed] = useState(false)
   const [accessInput, setAccessInput] = useState('')
-
   const [formSubmitted, setFormSubmitted] = useState(false)
-
   const [saleStartTime, setSaleStartTime] = useState(null)
-  const [statusMessage, setStatusMessage] = useState('')
+  const [statusList, setStatusList] = useState([])
 
   const accessCode = process.env.REACT_APP_ACCESS_CODE
 
@@ -23,6 +21,26 @@ const Reservation = () => {
       setAccessAllowed(false)
     }
   }, [accessAllowed])
+
+  const submit = async ({ eventUrl, authToken, ticketIndex, keyword }) => {
+    setFormSubmitted(true)
+    const userPreferences = {
+      ticketIndex: ticketIndex || 0,
+      keyword: keyword || '',
+    }
+    const bot = await initBot(
+      eventUrl,
+      authToken,
+      userPreferences,
+      sendStatusMessage
+    )
+    setSaleStartTime(bot.saleStartTime)
+    await startBot(bot)
+  }
+
+  const sendStatusMessage = (message) => {
+    setStatusList((prevStatusList) => [...prevStatusList, message])
+  }
 
   const handleAccess = () => {
     if (accessInput === accessCode) {
@@ -46,14 +64,7 @@ const Reservation = () => {
   }
 
   if (formSubmitted) {
-    return (
-      <div>
-        <InfoBox statusMessage={statusMessage} />
-        {saleStartTime !== null ? (
-          <Timer saleStartTime={saleStartTime} />
-        ) : null}
-      </div>
-    )
+    return <InfoBox statusList={statusList} saleStartTime={saleStartTime} />
   }
 
   return (
@@ -61,6 +72,7 @@ const Reservation = () => {
       <ReservationForm
         setSubmitted={setFormSubmitted}
         setSaleStartTime={setSaleStartTime}
+        submit={submit}
       />
     </>
   )

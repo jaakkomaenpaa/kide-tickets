@@ -41,3 +41,12 @@
 .infoText {
   text-align: center;
 }
+
+.statusList {
+  margin-top: 5px;
+  border-color: grey;
+  border-width: 1px;
+  border-radius: 5px;
+  padding: 10px;
+  border-style: solid;
+}

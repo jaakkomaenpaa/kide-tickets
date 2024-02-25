@@ -27,8 +27,3 @@ export const getRequestId = (inventoryId) => {
       .join('')
   ).substring(0, 8)
 }
-
-export const sendStatusMessage = (message, statusList) => {
-  statusList += <p>{message}</p>
-} 
-
