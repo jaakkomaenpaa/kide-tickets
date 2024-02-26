@@ -30,13 +30,12 @@ const Login = () => {
 
   const submit = async ({ username, password }) => {
     try {
-      const user = await loginService.login({
+      await loginService.login({
         username,
         password,
       })
       setSubmitted(true)
-      window.localStorage.setItem('loggedUser', JSON.stringify(user))
-      navigate('/home')
+      navigate('/my-account')
       window.location.reload()
     } catch (error) {
       setError(`Error: ${error}`)

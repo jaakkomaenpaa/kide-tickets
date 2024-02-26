@@ -5,7 +5,9 @@ const baseUrl = `${config.SERVER_BASE_URL}/login`
 
 const login = async (credentials) => {
   const response = await axios.post(baseUrl, credentials)
-  return response.data
+  const user = response.data
+  window.localStorage.setItem('loggedUser', JSON.stringify(user))
+  window.localStorage.setItem('authToken', `Bearer ${user.token}`)
 }
 
 const exports = { login }

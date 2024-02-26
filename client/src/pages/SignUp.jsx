@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import userService from './../services/users'
+import loginService from './../services/login'
 
 const validationSchema = yup.object().shape({
   username: yup
@@ -47,7 +48,10 @@ const SignUp = () => {
         kideAuthToken,
       })
       setSubmitted(true)
-      window.localStorage.setItem('loggedUser', JSON.stringify(user))
+      await loginService.login({
+        username: user.username,
+        password: user.password,
+      })
       navigate('/home')
       window.location.reload()
     } catch (error) {
