@@ -29,6 +29,7 @@ const Account = () => {
 
   const logout = () => {
     window.localStorage.removeItem('loggedUser')
+    window.localStorage.removeItem('authToken')
     navigate('/home')
     window.location.reload()
   }
@@ -52,10 +53,13 @@ const Account = () => {
   }
 
   const removeAccount = async () => {
-    await userService.remove(loggedUser.id)
-    window.localStorage.removeItem('loggedUser')
-    navigate('/home')
-    window.location.reload()
+    if (window.confirm('Are you sure you want to remove your account?')) {
+      await userService.remove(loggedUser.id)
+      window.localStorage.removeItem('loggedUser')
+      window.localStorage.removeItem('authToken')
+      navigate('/home')
+      window.location.reload()
+    }   
   }
 
   if (!loggedUser) {

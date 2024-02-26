@@ -14,6 +14,6 @@ export const initBot = async (eventUrl, authToken, userPreferences, sendStatusMe
     sendStatusMessage('Event not found :(')
     return
   }
-
+  sendStatusMessage('Event found')
   return new Bot(event, eventUrl, authToken, userPreferences, sendStatusMessage)
 }

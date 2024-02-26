@@ -1,5 +1,4 @@
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
-import { useEffect, useState } from 'react'
 
 import './../styles/navbar.css'
 import Reservation from '../pages/Reservation/Reservation'
@@ -11,25 +10,12 @@ import Account from '../pages/Account'
 
 const Navbar = () => {
 
-  const [loggedUser, setLoggedUser] = useState(null)
-
-  useEffect(() => {
-    const loggedUserJSON = window.localStorage.getItem('loggedUser')
-    if (loggedUserJSON) {
-      const user = JSON.parse(loggedUserJSON)
-      setLoggedUser(user)
-    }
-    else {
-      setLoggedUser(null)
-    }
-  }, [])
-
   return (
     <Router>
       <div className='navbar'>
         <Link className='pageLink' to='/home'>Home</Link>
         <Link className='pageLink' to='/reserve'>Reservation</Link>
-        {!loggedUser ? ( 
+        {!window.localStorage.getItem('loggedUser') ? ( 
           <div>
             <Link className='pageLink' to='/log-in'>Log in</Link>
             <Link className='pageLink' to='/sign-up'>Sign up</Link>

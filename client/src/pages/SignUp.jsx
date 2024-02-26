@@ -42,17 +42,17 @@ const SignUp = () => {
 
   const submit = async ({ username, password, kideAuthToken }) => {
     try {
-      const user = await userService.create({
+      await userService.create({
         username,
         password,
         kideAuthToken,
       })
       setSubmitted(true)
       await loginService.login({
-        username: user.username,
-        password: user.password,
+        username,
+        password,
       })
-      navigate('/home')
+      navigate('/my-account')
       window.location.reload()
     } catch (error) {
       setError(`Error: ${error}`)
