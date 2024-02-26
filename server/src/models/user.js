@@ -6,20 +6,20 @@ const userSchema = mongoose.Schema({
     type: String,
     required: true,
     unique: true,
-    minlength: 4
+    minlength: 4,
   },
   kideAuthToken: {
     type: String,
   },
   passwordHash: {
     type: String,
-    required: true
+    required: true,
   },
   favoriteEventUrls: [
     {
-      type: String
-    }
-  ]
+      type: String,
+    },
+  ],
 })
 
 userSchema.plugin(uniqueValidator)
@@ -30,7 +30,6 @@ userSchema.set('toJSON', {
     delete returnedObject._id
     delete returnedObject.__v
     delete returnedObject.passwordHash
-    delete returnedObject.kideAuthToken
   },
 })
 
