@@ -1,5 +1,7 @@
 # Ticket reserver for Kide.app
 
+https://kide-tickets-client.onrender.com
+
 Works on browser, reserving tickets requires an access code to prevent overusage. 
 The app is deployed as a free instance on Render, so it might take some time to start running.
   
