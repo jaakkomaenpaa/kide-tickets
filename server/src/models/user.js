@@ -15,11 +15,14 @@ const userSchema = mongoose.Schema({
     type: String,
     required: true,
   },
-  favoriteEventUrls: [
-    {
-      type: String,
-    },
-  ],
+  favoriteEventUrls: [{
+      key: {
+        type: String,
+      },
+      url: {
+        type: String,
+      },
+  }],
 })
 
 userSchema.plugin(uniqueValidator)

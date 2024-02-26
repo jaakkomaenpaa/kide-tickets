@@ -12,12 +12,30 @@ input {
   margin: 1px;
 }
 
+.eventContainer {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
 .updateField {
   display: flex;
   flex-direction: row;
-  margin-bottom: 20px;
+}
+
+.eventInput {
+  width: 145px;
 }
 
 .eventField {
   margin-bottom: 20px;
+}
+
+.removeButton {
+  padding: 0px 5px;
+  font-weight: 450;
+  background-color: lightgrey;
+  border-radius: 5px;
+  border-color: grey;
+  margin-left: 10px;
 }

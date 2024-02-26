@@ -6,8 +6,9 @@ import userService from '../services/users'
 
 const Account = () => {
   const [loggedUser, setLoggedUser] = useState(null)
-  const [eventUrl, setEventUrl] = useState('')
+  const [eventUrl, setEventUrl] = useState({ key: '', url: '' })
   const [kideToken, setKideToken] = useState('')
+  const [error, setError] = useState('')
 
   const navigate = useNavigate()
 
@@ -35,9 +36,24 @@ const Account = () => {
   }
 
   const addEvent = async () => {
+    if (!eventUrl.key || !eventUrl.url) {
+      setError('Both fields required')
+      return
+    }
     const updatedUser = {
       ...loggedUser,
       favoriteEventUrls: [...loggedUser.favoriteEventUrls.concat(eventUrl)],
+    }
+    await userService.update(updatedUser)
+    window.location.reload()
+  }
+
+  const removeEvent = async (event) => {
+    const updatedUser = {
+      ...loggedUser,
+      favoriteEventUrls: loggedUser.favoriteEventUrls.filter(
+        (url) => url.id !== event.id
+      ),
     }
     await userService.update(updatedUser)
     window.location.reload()
@@ -59,7 +75,7 @@ const Account = () => {
       window.localStorage.removeItem('authToken')
       navigate('/home')
       window.location.reload()
-    }   
+    }
   }
 
   if (!loggedUser) {
@@ -76,7 +92,15 @@ const Account = () => {
             Favorite events:
             <ul>
               {loggedUser.favoriteEventUrls.map((event) => (
-                <li key={event}>{event}</li>
+                <li key={event.url}>
+                  {event.key} - {event.url}{' '}
+                  <button
+                    className='removeButton'
+                    onClick={() => removeEvent(event)}
+                  >
+                    remove
+                  </button>
+                </li>
               ))}
             </ul>
           </div>
@@ -84,14 +108,28 @@ const Account = () => {
           <div>No favorite events yet</div>
         )}
       </div>
-      <div>Add to favorite events:</div>
-      <div className='updateField'>
-        <input
-          value={eventUrl}
-          placeholder='Event url'
-          onChange={(event) => setEventUrl(event.target.value)}
-        />
-        <button onClick={addEvent}>+</button>
+      <div className='eventContainer'>
+        Add to favorite events:
+        <div className='updateField'>
+          <input
+            className='eventInput'
+            value={eventUrl.key}
+            placeholder='Title'
+            onChange={(event) =>
+              setEventUrl({ ...eventUrl, key: event.target.value })
+            }
+          />
+          <input
+            className='eventInput'
+            value={eventUrl.url}
+            placeholder='Event url'
+            onChange={(event) =>
+              setEventUrl({ ...eventUrl, url: event.target.value })
+            }
+          />
+          <button onClick={addEvent}>+</button>
+        </div>
+        <div className='error'>{error}</div>
       </div>
       <div>Update kide bearer token:</div>
       <div className='updateField'>
