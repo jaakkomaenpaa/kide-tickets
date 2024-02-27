@@ -15,20 +15,16 @@ input {
 .eventContainer {
   display: flex;
   flex-direction: column;
-  margin-bottom: 20px;
 }
 
 .updateField {
   display: flex;
   flex-direction: row;
+  margin-bottom: 20px;
 }
 
 .eventInput {
   width: 145px;
-}
-
-.eventField {
-  margin-bottom: 20px;
 }
 
 .removeButton {

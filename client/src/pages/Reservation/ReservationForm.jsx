@@ -8,7 +8,7 @@ const validationSchema = yup.object().shape({
   keyword: yup.string().nullable(),
 })
 
-const ReservationForm = ({ setSubmitted, setSaleStartTime, submit }) => {
+const ReservationForm = ({ submit }) => {
 
   const fieldInfo = [
     {

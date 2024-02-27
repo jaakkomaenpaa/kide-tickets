@@ -2,9 +2,9 @@ import { sleep } from '../utils'
 import kideService from '../services/kide'
 
 class Bot {
-  constructor(event, eventUrl, authToken, userPreferences, sendStatusMessage) {
+  constructor(event, eventId, authToken, userPreferences, sendStatusMessage) {
     this.sendStatusMessage = sendStatusMessage
-    this.eventUrl = eventUrl
+    this.eventId = eventId
     this.authToken = authToken
     this.userPreferences = userPreferences
     this.saleStartTime = new Date(event.saleStart)
@@ -27,7 +27,7 @@ class Bot {
   async getEventData() {
     this.sendStatusMessage('Fetching event data...')
     while (true) {
-      const response = await kideService.getEvent(this.eventUrl)
+      const response = await kideService.getEvent(this.eventId)
       if (
         response.salesStarted &&
         response.salesOngoing &&

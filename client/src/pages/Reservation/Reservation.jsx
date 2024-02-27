@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react'
 
 import { startBot, initBot } from '../../bot/scripts'
+import { stripIdFromUrl } from '../../utils'
 import './../../styles/reserve.css'
 import ReservationForm from './ReservationForm'
 import InfoBox from './InfoBox'
+import config from '../../config'
 
 const Reservation = () => {
   const [accessAllowed, setAccessAllowed] = useState(false)
@@ -12,10 +14,8 @@ const Reservation = () => {
   const [saleStartTime, setSaleStartTime] = useState(null)
   const [statusList, setStatusList] = useState([])
 
-  const accessCode = process.env.REACT_APP_ACCESS_CODE
-
   useEffect(() => {
-    if (window.localStorage.getItem('access')) {
+    if (window.localStorage.getItem(config.ACCESS_KEY)) {
       setAccessAllowed(true)
     } else {
       setAccessAllowed(false)
@@ -29,7 +29,7 @@ const Reservation = () => {
       keyword: keyword || '',
     }
     const bot = await initBot(
-      eventUrl,
+      stripIdFromUrl(eventUrl),
       authToken,
       userPreferences,
       sendStatusMessage
@@ -43,8 +43,8 @@ const Reservation = () => {
   }
 
   const handleAccess = () => {
-    if (accessInput === accessCode) {
-      window.localStorage.setItem('access', true)
+    if (accessInput === config.ACCESS_CODE) {
+      window.localStorage.setItem(config.ACCESS_KEY, true)
       setAccessAllowed(true)
     }
   }
@@ -67,15 +67,7 @@ const Reservation = () => {
     return <InfoBox statusList={statusList} saleStartTime={saleStartTime} />
   }
 
-  return (
-    <>
-      <ReservationForm
-        setSubmitted={setFormSubmitted}
-        setSaleStartTime={setSaleStartTime}
-        submit={submit}
-      />
-    </>
-  )
+  return <ReservationForm submit={submit} />
 }
 
 export default Reservation

@@ -8,12 +8,12 @@ export const startBot = async (bot) => {
   await bot.startReservation()
 }
 
-export const initBot = async (eventUrl, authToken, userPreferences, sendStatusMessage) => {
-  const event = await kideService.getEvent(eventUrl)
+export const initBot = async (eventId, authToken, userPreferences, sendStatusMessage) => {
+  const event = await kideService.getEvent(eventId)
   if (!event) {
     sendStatusMessage('Event not found :(')
     return
   }
   sendStatusMessage('Event found')
-  return new Bot(event, eventUrl, authToken, userPreferences, sendStatusMessage)
+  return new Bot(event, eventId, authToken, userPreferences, sendStatusMessage)
 }

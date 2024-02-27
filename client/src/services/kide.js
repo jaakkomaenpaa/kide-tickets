@@ -3,9 +3,9 @@ import axios from 'axios'
 import { getRequestId, reverseString } from '../utils'
 import config from '../config'
 
-const getEvent = async (eventUrl) => {
+const getEvent = async (eventId) => {
   try {
-    const request = await axios.get(`${config.KIDE_PRODUCT_URL}${eventUrl}`)
+    const request = await axios.get(`${config.KIDE_PRODUCT_URL}${eventId}`)
     console.log(request.data)
     const product = request.data.model.product
 

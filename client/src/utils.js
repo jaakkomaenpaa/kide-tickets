@@ -27,3 +27,12 @@ export const getRequestId = (inventoryId) => {
       .join('')
   ).substring(0, 8)
 }
+
+export const stripIdFromUrl = (url) => {
+  if (!url.includes('/')) {
+    return url
+  }
+  const parts = url.split('/')
+  console.log('id', parts[parts.length - 1])
+  return parts[parts.length - 1]
+}
