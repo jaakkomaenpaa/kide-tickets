@@ -12,9 +12,10 @@ input {
   margin: 1px;
 }
 
-.eventContainer {
+.eventField {
   display: flex;
   flex-direction: column;
+  margin-bottom: 20px;
 }
 
 .updateField {
@@ -34,4 +35,10 @@ input {
   border-radius: 5px;
   border-color: grey;
   margin-left: 10px;
+}
+
+.buttonContainer {
+  display: flex;
+  flex-direction: row;
+  gap: 50px;
 }

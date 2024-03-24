@@ -38,8 +38,6 @@ usersRouter.put('/:id', async (req, res) => {
   const userObject = req.body
   const token = req.token
 
-  console.log('user', userObject)
-
   if (!token) {
     return res.status(401).json({ error: 'Authorization token missing' })
   }

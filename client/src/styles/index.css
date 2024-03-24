@@ -17,3 +17,8 @@ code {
     monospace;
 
 }
+
+div {
+  display: flex;
+  flex-direction: column;
+}

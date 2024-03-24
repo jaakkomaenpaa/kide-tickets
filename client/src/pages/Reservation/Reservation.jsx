@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
 
 import { startBot, initBot } from '../../bot/scripts'
-import { stripIdFromUrl } from '../../utils'
 import './../../styles/reserve.css'
 import ReservationForm from './ReservationForm'
 import InfoBox from './InfoBox'
@@ -29,7 +28,7 @@ const Reservation = () => {
       keyword: keyword || '',
     }
     const bot = await initBot(
-      stripIdFromUrl(eventUrl),
+      eventUrl,
       authToken,
       userPreferences,
       sendStatusMessage

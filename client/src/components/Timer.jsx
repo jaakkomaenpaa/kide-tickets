@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 
-import { formatTime, sleep } from '../../utils'
+import { formatTime, sleep } from '../utils'
 
 // Displays a timer that starts a countdown until the sale starting time
 const Timer = ({ saleStartTime }) => {
@@ -19,7 +19,7 @@ const Timer = ({ saleStartTime }) => {
   return (
     <div className='infoText'>
       {timeLeft <= 0
-        ? 'Just a moment...'
+        ? 'Sale has started'
         : `Sale starts in: ${formatTime(timeLeft)}`}
     </div>
   )

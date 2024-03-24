@@ -15,13 +15,16 @@ const userSchema = mongoose.Schema({
     type: String,
     required: true,
   },
-  favoriteEventUrls: [{
+  favoriteEvents: [{
       key: {
         type: String,
       },
       url: {
         type: String,
       },
+      saleStart: {
+        type: String
+      }
   }],
 })
 

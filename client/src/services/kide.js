@@ -1,10 +1,11 @@
 import axios from 'axios'
 
-import { getRequestId, reverseString } from '../utils'
+import { getRequestId, reverseString, stripIdFromUrl } from '../utils'
 import config from '../config'
 
-const getEvent = async (eventId) => {
+const getEvent = async (eventUrl) => {
   try {
+    const eventId = stripIdFromUrl(eventUrl)
     const request = await axios.get(`${config.KIDE_PRODUCT_URL}${eventId}`)
     console.log(request.data)
     const product = request.data.model.product
@@ -16,6 +17,7 @@ const getEvent = async (eventId) => {
       salesPaused: product.salesPaused,
       maxTotalReservations: product.maxTotalReservationsPerCheckout,
       variants: request.data.model.variants,
+      picture: product.mediaFileName
     }
   } catch (error) {
     console.log(error)
@@ -40,7 +42,7 @@ const makeReservation = async (authToken, variant, quantity) => {
 
   const headers = {
     authorization: `Bearer ${reverseString(authToken)}`,
-    'X-Requested-Token-6e0': getRequestId(variant.inventoryId),
+    'X-Requested-Token-C69': getRequestId(variant.inventoryId),
     'Content-Type': 'application/json;charset=UTF-8',
   }
 

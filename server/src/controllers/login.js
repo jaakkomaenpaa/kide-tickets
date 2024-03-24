@@ -30,6 +30,7 @@ loginRouter.post('/', async (req, res) => {
     username: user.username,
     id: user.id,
     favoriteEventUrls: user.favoriteEventUrls,
+    kideAuthToken: user.kideAuthToken
   })
 })
 

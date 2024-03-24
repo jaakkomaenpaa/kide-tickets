@@ -1,12 +1,14 @@
 import { useNavigate } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 
+import { stripIdFromUrl } from '../utils'
 import '../styles/account.css'
 import userService from '../services/users'
+import kideService from '../services/kide'
 
 const Account = () => {
   const [loggedUser, setLoggedUser] = useState(null)
-  const [eventUrl, setEventUrl] = useState({ key: '', url: '' })
+  const [eventData, setEventData] = useState({ key: '', url: '' })
   const [kideToken, setKideToken] = useState('')
   const [error, setError] = useState('')
 
@@ -36,23 +38,30 @@ const Account = () => {
   }
 
   const addEvent = async () => {
-    if (!eventUrl.key || !eventUrl.url) {
+    if (!eventData.key || !eventData.url) {
       setError('Both fields required')
       return
     }
+    console.log(eventData)
+    const event = await kideService.getEvent(eventData.url)
+    if (event.status === 'fail') {
+      setError('Provide a valid event url or id')
+      return
+    }
+    const mergedEvent = {...event, ...eventData}
     const updatedUser = {
       ...loggedUser,
-      favoriteEventUrls: [...loggedUser.favoriteEventUrls.concat(eventUrl)],
+      favoriteEvents: [...loggedUser.favoriteEvents.concat(mergedEvent)],
     }
     await userService.update(updatedUser)
     window.location.reload()
   }
 
-  const removeEvent = async (event) => {
+  const removeEvent = async (eventToRemove) => {
     const updatedUser = {
       ...loggedUser,
-      favoriteEventUrls: loggedUser.favoriteEventUrls.filter(
-        (url) => url.id !== event.id
+      favoriteEvents: loggedUser.favoriteEvents.filter(
+        (event) => event._id !== eventToRemove._id
       ),
     }
     await userService.update(updatedUser)
@@ -65,7 +74,7 @@ const Account = () => {
       kideAuthToken: kideToken,
     }
     await userService.update(updatedUser)
-    setKideToken('')
+    window.location.reload()
   }
 
   const removeAccount = async () => {
@@ -87,12 +96,12 @@ const Account = () => {
       <h3>My account</h3>
       <p>Logged in as {loggedUser?.username}</p>
       <div className='eventField'>
-        {loggedUser.favoriteEventUrls.length > 0 ? (
+        {loggedUser.favoriteEvents.length > 0 ? (
           <div>
             Favorite events:
             <ul>
-              {loggedUser.favoriteEventUrls.map((event) => (
-                <li key={event.url}>
+              {loggedUser.favoriteEvents.map((event) => (
+                <li key={event._id}>
                   {event.key} - {event.url}{' '}
                   <button
                     className='removeButton'
@@ -108,23 +117,23 @@ const Account = () => {
           <div>No favorite events yet</div>
         )}
       </div>
-      <div className='eventContainer'>
+      <div className='eventField'>
         Add to favorite events:
         <div className='updateField'>
           <input
             className='eventInput'
-            value={eventUrl.key}
+            value={eventData.key}
             placeholder='Title'
             onChange={(event) =>
-              setEventUrl({ ...eventUrl, key: event.target.value })
+              setEventData({ ...eventData, key: event.target.value })
             }
           />
           <input
             className='eventInput'
-            value={eventUrl.url}
+            value={eventData.url}
             placeholder='Event url'
             onChange={(event) =>
-              setEventUrl({ ...eventUrl, url: event.target.value })
+              setEventData({ ...eventData, url: stripIdFromUrl(event.target.value) })
             }
           />
           <button onClick={addEvent}>+</button>
@@ -140,9 +149,10 @@ const Account = () => {
         />
         <button onClick={setToken}>+</button>
       </div>
-
-      <button onClick={logout}>Log out</button>
-      <button onClick={removeAccount}>Remove account</button>
+      <div className='buttonContainer'>
+        <button onClick={logout}>Log out</button>
+        <button onClick={removeAccount}>Remove account</button>
+      </div>
     </div>
   )
 }

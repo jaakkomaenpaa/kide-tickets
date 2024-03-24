@@ -9,7 +9,7 @@ const validationSchema = yup.object().shape({
 })
 
 const ReservationForm = ({ submit }) => {
-
+  
   const fieldInfo = [
     {
       name: 'eventUrl',
@@ -30,48 +30,46 @@ const ReservationForm = ({ submit }) => {
   ]
 
   return (
-    <>
-      <div>
-        <p>Reservation form</p>
-        <Formik
-          initialValues={{
-            eventUrl: '',
-            authToken: '',
-            ticketIndex: '',
-            keyword: '',
-          }}
-          validationSchema={validationSchema}
-          onSubmit={submit}
-        >
-          {({ isSubmitting }) => (
-            <Form className='form'>
-              {fieldInfo.map((field) => (
-                <div key={field.name} className='inputContainer'>
-                  <Field
-                    className='inputField'
-                    type='text'
-                    name={field.name}
-                    placeholder={field.placeholder}
-                  />
-                  <ErrorMessage
-                    className='error'
-                    name={field.name}
-                    component='div'
-                  />
-                </div>
-              ))}
-              <button
-                className='submitButton'
-                type='submit'
-                disabled={isSubmitting}
-              >
-                Submit
-              </button>
-            </Form>
-          )}
-        </Formik>
-      </div>
-    </>
+    <div>
+      <p>Reservation form</p>
+      <Formik
+        initialValues={{
+          eventUrl: '',
+          authToken: '',
+          ticketIndex: '',
+          keyword: '',
+        }}
+        validationSchema={validationSchema}
+        onSubmit={submit}
+      >
+        {({ isSubmitting }) => (
+          <Form className='form'>
+            {fieldInfo.map((field) => (
+              <div key={field.name} className='inputContainer'>
+                <Field
+                  className='inputField'
+                  type='text'
+                  name={field.name}
+                  placeholder={field.placeholder}
+                />
+                <ErrorMessage
+                  className='error'
+                  name={field.name}
+                  component='div'
+                />
+              </div>
+            ))}
+            <button
+              className='submitButton'
+              type='submit'
+              disabled={isSubmitting}
+            >
+              Submit
+            </button>
+          </Form>
+        )}
+      </Formik>
+    </div>
   )
 }
 
