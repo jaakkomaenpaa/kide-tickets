@@ -13,6 +13,7 @@ const Reservation = () => {
   const [saleStartTime, setSaleStartTime] = useState(null)
   const [statusList, setStatusList] = useState([])
 
+  // Define if user has access or no (access control quite weak for now)
   useEffect(() => {
     if (window.localStorage.getItem(config.ACCESS_KEY)) {
       setAccessAllowed(true)
@@ -21,6 +22,7 @@ const Reservation = () => {
     }
   }, [accessAllowed])
 
+  // Submit reservation and start bot
   const submit = async ({ eventUrl, authToken, ticketIndex, keyword }) => {
     setFormSubmitted(true)
     const userPreferences = {

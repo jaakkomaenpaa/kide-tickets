@@ -4,8 +4,8 @@ const Footer = () => {
   return (
     <div className='footerContainer'>
       <hr className='hLine' />
-      <p className='footerText'>v0.2.0</p>
-      <p className='footerText'>Latest feature: user can sign up and login</p>
+      <p className='footerText'>v1.0.0</p>
+      <p className='footerText'>Latest feature: basic functionalities implemented</p>
     </div>
   )
 }

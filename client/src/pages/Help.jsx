@@ -1,5 +1,6 @@
 import './../styles/help.css'
 
+// Basic instructions for app use
 const Help = () => {
   return (
     <div className='helpContainer'>

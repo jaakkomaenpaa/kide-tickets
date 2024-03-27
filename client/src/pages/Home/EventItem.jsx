@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom'
 const EventItem = ({ event }) => {
   const navigate = useNavigate()
 
+  // Will have some actual function later
   const reserve = async () => {
     navigate('/reserve')
   }

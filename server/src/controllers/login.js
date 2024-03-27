@@ -23,6 +23,7 @@ loginRouter.post('/', async (req, res) => {
     id: user.id,
   }
 
+  // Token to verify user actions in app
   const token = jwt.sign(userForToken, config.SECRET)
 
   res.status(200).send({

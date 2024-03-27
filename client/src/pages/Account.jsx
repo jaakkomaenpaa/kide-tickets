@@ -14,6 +14,7 @@ const Account = () => {
 
   const navigate = useNavigate()
 
+  // Update logged user data
   useEffect(() => {
     const updateUser = async (userId) => {
       const updatedUser = await userService.getUser(userId)
@@ -37,12 +38,13 @@ const Account = () => {
     window.location.reload()
   }
 
+  // Add event to favorites
   const addEvent = async () => {
     if (!eventData.key || !eventData.url) {
       setError('Both fields required')
       return
     }
-    console.log(eventData)
+    // Ensure that given url is valid
     const event = await kideService.getEvent(eventData.url)
     if (event.status === 'fail') {
       setError('Provide a valid event url or id')
@@ -57,6 +59,7 @@ const Account = () => {
     window.location.reload()
   }
 
+  // Remove event from favorites
   const removeEvent = async (eventToRemove) => {
     const updatedUser = {
       ...loggedUser,
@@ -68,6 +71,7 @@ const Account = () => {
     window.location.reload()
   }
 
+  // Set bearer token
   const setToken = async () => {
     const updatedUser = {
       ...loggedUser,
@@ -91,10 +95,12 @@ const Account = () => {
     return <p>You have not logged in</p>
   }
 
+  // This is a bit of a mess
   return (
     <div>
       <h3>My account</h3>
       <p>Logged in as {loggedUser?.username}</p>
+      {/* Favorite event list */}
       <div className='eventField'>
         {loggedUser.favoriteEvents.length > 0 ? (
           <div>
@@ -117,6 +123,7 @@ const Account = () => {
           <div>No favorite events yet</div>
         )}
       </div>
+      {/* Inputs for event adding */}
       <div className='eventField'>
         Add to favorite events:
         <div className='updateField'>
@@ -140,6 +147,7 @@ const Account = () => {
         </div>
         <div className='error'>{error}</div>
       </div>
+      {/* Input to update token */}
       <div>Update kide bearer token:</div>
       <div className='updateField'>
         <input
@@ -149,6 +157,7 @@ const Account = () => {
         />
         <button onClick={setToken}>+</button>
       </div>
+      {/* Logout and remove account */}
       <div className='buttonContainer'>
         <button onClick={logout}>Log out</button>
         <button onClick={removeAccount}>Remove account</button>

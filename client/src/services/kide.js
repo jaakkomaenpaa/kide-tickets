@@ -3,6 +3,7 @@ import axios from 'axios'
 import { getRequestId, reverseString, stripIdFromUrl } from '../utils'
 import config from '../config'
 
+// Get basic event data
 const getEvent = async (eventUrl) => {
   try {
     const eventId = stripIdFromUrl(eventUrl)
@@ -17,14 +18,15 @@ const getEvent = async (eventUrl) => {
       salesPaused: product.salesPaused,
       maxTotalReservations: product.maxTotalReservationsPerCheckout,
       variants: request.data.model.variants,
-      picture: product.mediaFileName
     }
   } catch (error) {
     console.log(error)
+    // This should be changed at some point
     return { status: 'fail' }
   }
 }
 
+// Reserve given amount of one ticket type
 const makeReservation = async (authToken, variant, quantity) => {
   const body = {
     toCreate: [
@@ -55,6 +57,7 @@ const makeReservation = async (authToken, variant, quantity) => {
   } catch (error) {
     console.log(`Fail reserving type ${variant.name}`)
     console.error(error)
+    // This also should be changed 
     return { status: 'fail' }
   }
 }

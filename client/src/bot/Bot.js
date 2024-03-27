@@ -5,10 +5,10 @@ class Bot {
   constructor(event, eventId, authToken, userPreferences, sendStatusMessage) {
     this.sendStatusMessage = sendStatusMessage
     this.eventId = eventId
-    this.authToken = authToken
-    this.userPreferences = userPreferences
+    this.authToken = authToken // Bearer token
+    this.userPreferences = userPreferences // Ticket index and keyword
     this.saleStartTime = new Date(event.saleStart)
-    this.eventData = null
+    this.eventData = null // Will store data of event after sales start
     this.maxTotalReservations = 200
     this.reservedAmount = 0
     this.variantsUsed = []
@@ -26,6 +26,7 @@ class Bot {
 
   async getEventData() {
     this.sendStatusMessage('Fetching event data...')
+    // Wait until sales open, then store data
     while (true) {
       const response = await kideService.getEvent(this.eventId)
       if (

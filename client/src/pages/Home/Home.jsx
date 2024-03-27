@@ -6,12 +6,11 @@ import EventItem from './EventItem'
 const Home = () => {
   const [favoriteEvents, setFavoriteEvents] = useState([])
 
+  // Check for logged user
   useEffect(() => {
-    console.log('running')
     const loggedUserJSON = window.localStorage.getItem('loggedUser')
     if (loggedUserJSON) {
       const loggedUser = JSON.parse(loggedUserJSON)
-      console.log(loggedUser)
       setFavoriteEvents(loggedUser.favoriteEvents)
     }
   }, [])

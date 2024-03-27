@@ -14,6 +14,8 @@ const Navbar = () => {
       <div className='navbar'>
         <Link className='pageLink' to='/home'>Home</Link>
         <Link className='pageLink' to='/reserve'>Reservation</Link>
+
+        {/*If not logged in, display login options, else display account */}
         {!window.localStorage.getItem('loggedUser') ? (
           <span>
             <Link className='pageLink' to='/log-in'>Log in</Link>
@@ -22,6 +24,7 @@ const Navbar = () => {
         ) : (
           <Link className='pageLink' to='/my-account'>Account</Link>
         )}
+
         <Link className='pageLink' to='/help'>Help</Link>
       </div>
       <div className='centerContent'>

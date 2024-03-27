@@ -1,5 +1,6 @@
 import Timer from '../../components/Timer'
 
+// Holds a list of status messages that occur during reservation process
 const InfoBox = ({ statusList, saleStartTime }) => {
   return (
     <div className='infoBox'>

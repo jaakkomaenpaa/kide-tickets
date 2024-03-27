@@ -10,7 +10,7 @@ export const startBot = async (bot) => {
 
 export const initBot = async (eventUrl, authToken, userPreferences, sendStatusMessage) => {
   const event = await kideService.getEvent(eventUrl)
-  if (!event) {
+  if (event.status === 'fail') {
     sendStatusMessage('Event not found :(')
     return
   }

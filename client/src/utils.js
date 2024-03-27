@@ -17,6 +17,7 @@ export const reverseString = (string) => {
   return string.split('').reverse().join('')
 }
 
+// Modify some bits
 export const getRequestId = (inventoryId) => {
   const secret = config.SECRET
   return btoa(
@@ -28,6 +29,7 @@ export const getRequestId = (inventoryId) => {
   ).substring(0, 8)
 }
 
+// Get event id from full url
 export const stripIdFromUrl = (url) => {
   if (!url.includes('/')) {
     return url
